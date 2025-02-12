@@ -1,6 +1,6 @@
 # Nixtla &nbsp; [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Statistical%20Forecasting%20Algorithms%20by%20Nixtla%20&url=https://github.com/Nixtla/statsforecast&via=nixtlainc&hashtags=StatisticalModels,TimeSeries,Forecasting) &nbsp;[![Slack](https://img.shields.io/badge/Slack-4A154B?&logo=slack&logoColor=white)](https://join.slack.com/t/nixtlacommunity/shared_invite/zt-1pmhan9j5-F54XR20edHk0UtYAPcW4KQ)
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-31-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-32-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 <div align="center">
@@ -43,12 +43,13 @@ Vist our [Installation Guide](https://nixtla.github.io/statsforecast/docs/gettin
 ```python
 from statsforecast import StatsForecast
 from statsforecast.models import AutoARIMA
+from statsforecast.utils import AirPassengersDF
 
+df = AirPassengersDF
 sf = StatsForecast(
-    models = [AutoARIMA(season_length = 12)],
-    freq = 'M'
+    models=[AutoARIMA(season_length=12)],
+    freq='ME',
 )
-
 sf.fit(df)
 sf.predict(h=12, level=[95])
 ```
@@ -107,83 +108,86 @@ Missing something? Please open an issue or write us in [![Slack](https://img.shi
 ### Automatic Forecasting
 Automatic forecasting tools search for the best parameters and select the best possible model for a group of time series. These tools are useful for large collections of univariate time series.
 
-|Model | Point Forecast | Probabilistic Forecast | Insample fitted values | Probabilistic fitted values |
-|:------|:-------------:|:----------------------:|:---------------------:|:----------------------------:|
-|[AutoARIMA](https://nixtla.github.io/statsforecast/src/core/models.html#autoarima)|✅|✅|✅|✅|✅|
-|[AutoETS](https://nixtla.github.io/statsforecast/src/core/models.html#autoets)|✅|✅|✅|✅|✅|
-|[AutoCES](https://nixtla.github.io/statsforecast/src/core/models.html#autoces)|✅|✅|✅|✅|✅|
-|[AutoTheta](https://nixtla.github.io/statsforecast/src/core/models.html#autotheta)|✅|✅|✅|✅|✅|
+|Model | Point Forecast | Probabilistic Forecast | Insample fitted values | Probabilistic fitted values |Exogenous features|
+|:------|:-------------:|:----------------------:|:---------------------:|:----------------------------:|:----------------:|
+|[AutoARIMA](https://nixtlaverse.nixtla.io/statsforecast/src/core/models.html#autoarima)|✅|✅|✅|✅|✅|
+|[AutoETS](https://nixtlaverse.nixtla.io/statsforecast/src/core/models.html#autoets)|✅|✅|✅|✅||
+|[AutoCES](https://nixtlaverse.nixtla.io/statsforecast/src/core/models.html#autoces)|✅|✅|✅|✅||
+|[AutoTheta](https://nixtlaverse.nixtla.io/statsforecast/src/core/models.html#autotheta)|✅|✅|✅|✅||
+|[AutoMFLES](https://nixtlaverse.nixtla.io/statsforecast/src/core/models.html#automfles)|✅|✅|✅|✅|✅|
+|[AutoTBATS](https://nixtlaverse.nixtla.io/statsforecast/src/core/models.html#autotbats)|✅|✅|✅|✅||
 
-## ARIMA Family
+### ARIMA Family
 These models exploit the existing autocorrelations in the time series.
 
-|Model | Point Forecast | Probabilistic Forecast | Insample fitted values | Probabilistic fitted values |
-|:------|:-------------:|:----------------------:|:---------------------:|:----------------------------:|
-|[ARIMA](https://nixtla.github.io/statsforecast/src/core/models.html#arima)|✅|✅|✅|✅|✅|
-|[AutoRegressive](https://nixtla.github.io/statsforecast/src/core/models.html#autoregressive)|✅|✅|✅|✅|✅|
+|Model | Point Forecast | Probabilistic Forecast | Insample fitted values | Probabilistic fitted values |Exogenous features|
+|:------|:-------------:|:----------------------:|:---------------------:|:----------------------------:|:----------------:|
+|[ARIMA](https://nixtlaverse.nixtla.io/statsforecast/src/core/models.html#arima)|✅|✅|✅|✅|✅|
+|[AutoRegressive](https://nixtlaverse.nixtla.io/statsforecast/src/core/models.html#autoregressive)|✅|✅|✅|✅|✅|
 
 ### Theta Family
 Fit two theta lines to a deseasonalized time series, using different techniques to obtain and combine the two theta lines to produce the final forecasts.
 
-|Model | Point Forecast | Probabilistic Forecast | Insample fitted values | Probabilistic fitted values |
-|:------|:-------------:|:----------------------:|:---------------------:|:----------------------------:|
-|[Theta](https://nixtla.github.io/statsforecast/src/core/models.html#theta)|✅|✅|✅|✅|✅|
-|[OptimizedTheta](https://nixtla.github.io/statsforecast/src/core/models.html#optimizedtheta)|✅|✅|✅|✅|✅|
-|[DynamicTheta](https://nixtla.github.io/statsforecast/src/core/models.html#dynamictheta)|✅|✅|✅|✅|✅|
-|[DynamicOptimizedTheta](https://nixtla.github.io/statsforecast/src/core/models.html#dynamicoptimizedtheta)|✅|✅|✅|✅|✅|
+|Model | Point Forecast | Probabilistic Forecast | Insample fitted values | Probabilistic fitted values |Exogenous features|
+|:------|:-------------:|:----------------------:|:---------------------:|:----------------------------:|:----------------:|
+|[Theta](https://nixtlaverse.nixtla.io/statsforecast/src/core/models.html#theta)|✅|✅|✅|✅||
+|[OptimizedTheta](https://nixtlaverse.nixtla.io/statsforecast/src/core/models.html#optimizedtheta)|✅|✅|✅|✅||
+|[DynamicTheta](https://nixtlaverse.nixtla.io/statsforecast/src/core/models.html#dynamictheta)|✅|✅|✅|✅||
+|[DynamicOptimizedTheta](https://nixtlaverse.nixtla.io/statsforecast/src/core/models.html#dynamicoptimizedtheta)|✅|✅|✅|✅||
+
 
 ### Multiple Seasonalities
 Suited for signals with more than one clear seasonality. Useful for low-frequency data like electricity and logs.
 
-|Model | Point Forecast | Probabilistic Forecast | Insample fitted values | Probabilistic fitted values |
-|:------|:-------------:|:----------------------:|:---------------------:|:----------------------------:|
-|[MSTL](https://nixtla.github.io/statsforecast/src/core/models.html#mstl)|✅|✅|✅|✅|✅|
+|Model | Point Forecast | Probabilistic Forecast | Insample fitted values | Probabilistic fitted values |Exogenous features|
+|:------|:-------------:|:----------------------:|:---------------------:|:----------------------------:|:----------------:|
+|[MSTL](https://nixtlaverse.nixtla.io/statsforecast/src/core/models.html#mstl)|✅|✅|✅|✅|If trend forecaster supports|
+|[MFLES](https://nixtlaverse.nixtla.io/statsforecast/src/core/models.html#mfles)|✅|✅|✅|✅|✅|
+|[TBATS](https://nixtlaverse.nixtla.io/statsforecast/src/core/models.html#tbats)|✅|✅|✅|✅||
 
 ### GARCH and ARCH Models 
 Suited for modeling time series that exhibit non-constant volatility over time. The ARCH model is a particular case of GARCH. 
 
-|Model | Point Forecast | Probabilistic Forecast | Insample fitted values | Probabilistic fitted values |
-|:------|:-------------:|:----------------------:|:---------------------:|:----------------------------:|
-|[GARCH](https://nixtla.github.io/statsforecast/src/core/models.html#garch)|✅|✅|✅|✅|✅|
-|[ARCH](https://nixtla.github.io/statsforecast/src/core/models.html#arch)|✅|✅|✅|✅|✅|
-
+|Model | Point Forecast | Probabilistic Forecast | Insample fitted values | Probabilistic fitted values |Exogenous features|
+|:------|:-------------:|:----------------------:|:---------------------:|:----------------------------:|:----------------:|
+|[GARCH](https://nixtlaverse.nixtla.io/statsforecast/src/core/models.html#garch)|✅|✅|✅|✅||
+|[ARCH](https://nixtlaverse.nixtla.io/statsforecast/src/core/models.html#arch)|✅|✅|✅|✅||
 
 ### Baseline Models
 Classical models for establishing baseline.
 
-|Model | Point Forecast | Probabilistic Forecast | Insample fitted values | Probabilistic fitted values |
-|:------|:-------------:|:----------------------:|:---------------------:|:----------------------------:|
-|[HistoricAverage](https://nixtla.github.io/statsforecast/src/core/models.html#historicaverage)|✅|✅|✅|✅|✅|
-|[Naive](https://nixtla.github.io/statsforecast/src/core/models.html#naive)|✅|✅|✅|✅|✅|
-|[RandomWalkWithDrift](https://nixtla.github.io/statsforecast/src/core/models.html#randomwalkwithdrift)|✅|✅|✅|✅|✅|
-|[SeasonalNaive](https://nixtla.github.io/statsforecast/src/core/models.html#seasonalnaive)|✅|✅|✅|✅|✅|
-|[WindowAverage](https://nixtla.github.io/statsforecast/src/core/models.html#windowaverage)|✅|||||
-|[SeasonalWindowAverage](https://nixtla.github.io/statsforecast/src/core/models.html#seasonalwindowaverage)|✅|||||
+|Model | Point Forecast | Probabilistic Forecast | Insample fitted values | Probabilistic fitted values |Exogenous features|
+|:------|:-------------:|:----------------------:|:---------------------:|:----------------------------:|:----------------:|
+|[HistoricAverage](https://nixtlaverse.nixtla.io/statsforecast/src/core/models.html#historicaverage)|✅|✅|✅|✅||
+|[Naive](https://nixtlaverse.nixtla.io/statsforecast/src/core/models.html#naive)|✅|✅|✅|✅||
+|[RandomWalkWithDrift](https://nixtlaverse.nixtla.io/statsforecast/src/core/models.html#randomwalkwithdrift)|✅|✅|✅|✅||
+|[SeasonalNaive](https://nixtlaverse.nixtla.io/statsforecast/src/core/models.html#seasonalnaive)|✅|✅|✅|✅||
+|[WindowAverage](https://nixtlaverse.nixtla.io/statsforecast/src/core/models.html#windowaverage)|✅|||||
+|[SeasonalWindowAverage](https://nixtlaverse.nixtla.io/statsforecast/src/core/models.html#seasonalwindowaverage)|✅|||||
 
 ### Exponential Smoothing
 Uses a weighted average of all past observations where the weights decrease exponentially into the past. Suitable for data with clear trend and/or seasonality. Use the `SimpleExponential` family for data with no clear trend or seasonality.
 
-|Model | Point Forecast | Probabilistic Forecast | Insample fitted values | Probabilistic fitted values |
-|:------|:-------------:|:----------------------:|:---------------------:|:----------------------------:|
-|[SimpleExponentialSmoothing](https://nixtla.github.io/statsforecast/src/core/models.html#simpleexponentialsmoothing)|✅|||||
-|[SimpleExponentialSmoothingOptimized](https://nixtla.github.io/statsforecast/src/core/models.html#simpleexponentialsmoothingoptimized)|✅|||||
-|[SeasonalExponentialSmoothing](https://nixtla.github.io/statsforecast/src/core/models.html#seasonalexponentialsmoothing)|✅|||||
-|[SeasonalExponentialSmoothingOptimized](https://nixtla.github.io/statsforecast/src/core/models.html#seasonalexponentialsmoothingoptimized)|✅|||||
-|[Holt](https://nixtla.github.io/statsforecast/src/core/models.html#holt)|✅|✅|✅|✅|✅|
-|[HoltWinters](https://nixtla.github.io/statsforecast/src/core/models.html#holtwinters)|✅|✅|✅|✅|✅|
+|Model | Point Forecast | Probabilistic Forecast | Insample fitted values | Probabilistic fitted values |Exogenous features|
+|:------|:-------------:|:----------------------:|:---------------------:|:----------------------------:|:----------------:|
+|[SimpleExponentialSmoothing](https://nixtlaverse.nixtla.io/statsforecast/src/core/models.html#simpleexponentialsmoothing)|✅|||||
+|[SimpleExponentialSmoothingOptimized](https://nixtlaverse.nixtla.io/statsforecast/src/core/models.html#simpleexponentialsmoothingoptimized)|✅|||||
+|[SeasonalExponentialSmoothing](https://nixtlaverse.nixtla.io/statsforecast/src/core/models.html#seasonalexponentialsmoothing)|✅|||||
+|[SeasonalExponentialSmoothingOptimized](https://nixtlaverse.nixtla.io/statsforecast/src/core/models.html#seasonalexponentialsmoothingoptimized)|✅|||||
+|[Holt](https://nixtlaverse.nixtla.io/statsforecast/src/core/models.html#holt)|✅|✅|✅|✅||
+|[HoltWinters](https://nixtlaverse.nixtla.io/statsforecast/src/core/models.html#holtwinters)|✅|✅|✅|✅||
 
-
-### Sparse or Intermittent 
+### Sparse or Inttermitent
 Suited for series with very few non-zero observations
 
-|Model | Point Forecast | Probabilistic Forecast | Insample fitted values | Probabilistic fitted values |
-|:------|:-------------:|:----------------------:|:---------------------:|:----------------------------:|
-|[ADIDA](https://nixtla.github.io/statsforecast/src/core/models.html#adida)|✅|||||
-|[CrostonClassic](https://nixtla.github.io/statsforecast/src/core/models.html#crostonclassic)|✅|||||
-|[CrostonOptimized](https://nixtla.github.io/statsforecast/src/core/models.html#crostonoptimized)|✅|||||
-|[CrostonSBA](https://nixtla.github.io/statsforecast/src/core/models.html#crostonsba)|✅|||||
-|[IMAPA](https://nixtla.github.io/statsforecast/src/core/models.html#imapa)|✅|||||
-|[TSB](https://nixtla.github.io/statsforecast/src/core/models.html#tsb)|✅|||||
+|Model | Point Forecast | Probabilistic Forecast | Insample fitted values | Probabilistic fitted values |Exogenous features|
+|:------|:-------------:|:----------------------:|:---------------------:|:----------------------------:|:----------------:|
+|[ADIDA](https://nixtlaverse.nixtla.io/statsforecast/src/core/models.html#adida)|✅||✅|✅||
+|[CrostonClassic](https://nixtlaverse.nixtla.io/statsforecast/src/core/models.html#crostonclassic)|✅||✅|✅||
+|[CrostonOptimized](https://nixtlaverse.nixtla.io/statsforecast/src/core/models.html#crostonoptimized)|✅||✅|✅||
+|[CrostonSBA](https://nixtlaverse.nixtla.io/statsforecast/src/core/models.html#crostonsba)|✅||✅|✅||
+|[IMAPA](https://nixtlaverse.nixtla.io/statsforecast/src/core/models.html#imapa)|✅||✅|✅||
+|[TSB](https://nixtlaverse.nixtla.io/statsforecast/src/core/models.html#tsb)|✅||✅|✅||
 
 ## 🔨 How to contribute
 See [CONTRIBUTING.md](https://github.com/Nixtla/statsforecast/blob/main/CONTRIBUTING.md).
@@ -192,7 +196,7 @@ See [CONTRIBUTING.md](https://github.com/Nixtla/statsforecast/blob/main/CONTRIBU
 
 ```bibtex
 @misc{garza2022statsforecast,
-    author={Federico Garza, Max Mergenthaler Canseco, Cristian Challú, Kin G. Olivares},
+    author={Azul Garza, Max Mergenthaler Canseco, Cristian Challú, Kin G. Olivares},
     title = {{StatsForecast}: Lightning fast forecasting with statistical and econometric models},
     year={2022},
     howpublished={{PyCon} Salt Lake City, Utah, US 2022},
@@ -210,7 +214,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <table>
   <tbody>
     <tr>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/FedericoGarza"><img src="https://avatars.githubusercontent.com/u/10517170?v=4?s=100" width="100px;" alt="fede"/><br /><sub><b>fede</b></sub></a><br /><a href="https://github.com/Nixtla/statsforecast/commits?author=FedericoGarza" title="Code">💻</a> <a href="#maintenance-FedericoGarza" title="Maintenance">🚧</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/AzulGarza"><img src="https://avatars.githubusercontent.com/u/10517170?v=4?s=100" width="100px;" alt="azul"/><br /><sub><b>azul</b></sub></a><br /><a href="https://github.com/Nixtla/statsforecast/commits?author=AzulGarza" title="Code">💻</a> <a href="#maintenance-AzulGarza" title="Maintenance">🚧</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/jmoralez"><img src="https://avatars.githubusercontent.com/u/8473587?v=4?s=100" width="100px;" alt="José Morales"/><br /><sub><b>José Morales</b></sub></a><br /><a href="https://github.com/Nixtla/statsforecast/commits?author=jmoralez" title="Code">💻</a> <a href="#maintenance-jmoralez" title="Maintenance">🚧</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://www.linkedin.com/in/sugatoray/"><img src="https://avatars.githubusercontent.com/u/10201242?v=4?s=100" width="100px;" alt="Sugato Ray"/><br /><sub><b>Sugato Ray</b></sub></a><br /><a href="https://github.com/Nixtla/statsforecast/commits?author=sugatoray" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="http://www.jefftackes.com"><img src="https://avatars.githubusercontent.com/u/9125316?v=4?s=100" width="100px;" alt="Jeff Tackes"/><br /><sub><b>Jeff Tackes</b></sub></a><br /><a href="https://github.com/Nixtla/statsforecast/issues?q=author%3Atackes" title="Bug reports">🐛</a></td>
@@ -249,6 +253,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/yibenhuang"><img src="https://avatars.githubusercontent.com/u/62163340?v=4?s=100" width="100px;" alt="Yiben Huang"/><br /><sub><b>Yiben Huang</b></sub></a><br /><a href="https://github.com/Nixtla/statsforecast/commits?author=yibenhuang" title="Documentation">📖</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/andrewgross"><img src="https://avatars.githubusercontent.com/u/370118?v=4?s=100" width="100px;" alt="Andrew Gross"/><br /><sub><b>Andrew Gross</b></sub></a><br /><a href="https://github.com/Nixtla/statsforecast/commits?author=andrewgross" title="Documentation">📖</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/taniishkaaa"><img src="https://avatars.githubusercontent.com/u/109246904?v=4?s=100" width="100px;" alt="taniishkaaa"/><br /><sub><b>taniishkaaa</b></sub></a><br /><a href="https://github.com/Nixtla/statsforecast/commits?author=taniishkaaa" title="Documentation">📖</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://manuel.calzolari.name"><img src="https://avatars.githubusercontent.com/u/2764902?v=4?s=100" width="100px;" alt="Manuel Calzolari"/><br /><sub><b>Manuel Calzolari</b></sub></a><br /><a href="https://github.com/Nixtla/statsforecast/commits?author=manuel-calzolari" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
