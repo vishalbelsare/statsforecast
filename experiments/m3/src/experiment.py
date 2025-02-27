@@ -1,9 +1,8 @@
 import os
 import time
-from functools import partial
 from multiprocessing import cpu_count
-os.environ['NUMBA_RELEASE_GIL'] = 'True'
-#os.environ['NUMBA_CACHE'] = 'True'
+os.environ['NIXTLA_NUMBA_RELEASE_GIL'] = '1'
+os.environ['NIXTLA_NUMBA_CACHE'] = '1'
 
 import fire
 import numpy as np
@@ -11,8 +10,7 @@ import pandas as pd
 from statsforecast import StatsForecast
 from statsforecast.models import (
         AutoTheta, AutoETS, AutoCES,AutoARIMA,
-        Theta, OptimizedTheta, 
-        DynamicTheta, DynamicOptimizedTheta
+        DynamicOptimizedTheta
 )
 from statsforecast.utils import AirPassengers as ap
 
@@ -27,14 +25,13 @@ def main(dataset: str = 'M3', group: str = 'Other') -> None:
         AutoARIMA(season_length=seasonality),
         DynamicOptimizedTheta(season_length=seasonality),
     ]
-    
+
     start = time.time()
-    fcst = StatsForecast(df=train, models=models, freq=freq, n_jobs=cpu_count())
-    forecasts = fcst.forecast(h=horizon)
+    fcst = StatsForecast(models=models, freq=freq, n_jobs=cpu_count())
+    forecasts = fcst.forecast(df=train, h=horizon)
     end = time.time()
     print(end - start)
 
-    forecasts = forecasts.reset_index()
     forecasts['StatisticalEnsemble'] = forecasts.set_index(['unique_id', 'ds']).median(axis=1).values
     forecasts.to_csv(f'data/StatisticalEnsemble-forecasts-{dataset}-{group}.csv', index=False)
 

@@ -6,10 +6,10 @@
   "commit": false,
   "contributors": [
     {
-      "login": "FedericoGarza",
-      "name": "fede",
+      "login": "AzulGarza",
+      "name": "azul",
       "avatar_url": "https://avatars.githubusercontent.com/u/10517170?v=4",
-      "profile": "https://github.com/FedericoGarza",
+      "profile": "https://github.com/AzulGarza",
       "contributions": [
         "code",
         "maintenance"
@@ -285,6 +285,15 @@
       "profile": "https://github.com/taniishkaaa",
       "contributions": [
         "doc"
+      ]
+    },
+    {
+      "login": "manuel-calzolari",
+      "name": "Manuel Calzolari",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2764902?v=4",
+      "profile": "https://manuel.calzolari.name",
+      "contributions": [
+        "code"
       ]
     }
   ],
